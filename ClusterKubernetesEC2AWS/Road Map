@@ -1,6 +1,6 @@
 - create VPC, subnet, internet gateway, route table and security group
 - create key pair to acess ec2 instances
 - create key pair for the ansible user
-- create script to be used at boot to crete the ansible user and download the necessary packages
+- create script to be used at boot to create the ansible user and download the necessary packages
 - create 3 ec2(one control and 2 workers)
 - use ansible to configure /etc/hosts on each one of then

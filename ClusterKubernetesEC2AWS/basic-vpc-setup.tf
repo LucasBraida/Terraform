@@ -54,16 +54,18 @@ resource "aws_route_table_association" "public-RT-to-subnet" {
 
 #CHECK WITCH PORTS NEED TO BE ALLOWED TO COMUNICATE BETWEEN THE NODES
 resource "aws_security_group" "k8s-SG" {
-  name        = "web-server-SG"
+  name        = "k8s-SG"
   vpc_id      = aws_vpc.my-vpc.id
   description = "Allow HTTP and SSH Access to web-servers"
+  
   ingress {
-    description = "Allow HTTP"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow All Trafic Between Cluster nodes"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["10.0.1.0/24"]
   }
+
 
   ingress {
     description = "Allow SSH"

@@ -3,7 +3,7 @@
 
 *.terraform.*
 
-access_keys/*
+**/access_keys/*
 # .tfstate files
 *.tfstate
 *.tfstate.*

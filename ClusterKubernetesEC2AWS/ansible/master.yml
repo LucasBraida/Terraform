@@ -1,0 +1,38 @@
+- hosts: control
+  become: yes
+  tasks:
+    - name: delete any existing clusters
+      shell: kubeadm reset --force
+
+    - name: initialize the cluster
+      shell: kubeadm init --pod-network-cidr 192.168.0.0/16 --kubernetes-version 1.23.0
+      # args:
+      #   chdir: $HOME
+      #   creates: cluster_initialized.txt
+
+    - name: create .kube directory
+      file:
+        path: $HOME/.kube
+        state: directory
+        mode: 0755
+
+    - name: copies admin.conf to user's kube config
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: $HOME/.kube/config
+        remote_src: yes
+
+    - name: install Pod network
+      shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml 
+      # args:
+      #   chdir: $HOME
+        
+    - name: Get the token for joining the worker nodes
+      shell: kubeadm token create  --print-join-command
+      register: kubernetes_join_command
+
+    # - debug:
+    #   msg: "{{ kubernetes_join_command.stdout }}"
+
+    - name: Copy join command to local file.
+      local_action: copy content="{{ kubernetes_join_command.stdout }}" dest="./kubernetes_join_command"

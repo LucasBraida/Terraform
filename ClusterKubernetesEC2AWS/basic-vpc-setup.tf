@@ -57,7 +57,7 @@ resource "aws_security_group" "k8s-SG" {
   name        = "k8s-SG"
   vpc_id      = aws_vpc.my-vpc.id
   description = "Allow HTTP and SSH Access to web-servers"
-  
+
   ingress {
     description = "Allow All Trafic Between Cluster nodes"
     from_port   = 0

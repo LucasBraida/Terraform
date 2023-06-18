@@ -19,10 +19,10 @@ resource "aws_instance" "k8s" {
   }
 }
 
-# output "EC2_private_ip" {
-#   description = "Public IP address of the EC2 instance"
-#   value       = aws_instance.k8s.*.private_ip
-# }
+output "EC2_public_ip" {
+  description = "Public IP address of the EC2 instance"
+  value       = [for node in aws_instance.k8s : node.public_ip]
+}
 
 
 # output "bootstrap_script" {

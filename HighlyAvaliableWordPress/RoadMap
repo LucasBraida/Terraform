@@ -1,0 +1,9 @@
+- simple implementation
+  - vpc with single public subnet and private subnet
+    - route table public and private, igw, nat gateway, security goup rds and wordpres
+  - rds
+  - wordpres
+  - efs
+  - secrets manager
+- real implementation
+  - https://docs.aws.amazon.com/whitepapers/latest/best-practices-wordpress/wordpress-high-availability-by-bitnami-on-aws-quick-start.html
